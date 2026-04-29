@@ -2,12 +2,14 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Datepicker from './datepicker'
 import Notification from './Notification'
+import AlarmApp from './Alarm'
 const App = () => {
   return (
     <View style={styles.container}>
       <Text>App</Text>
       <Datepicker/>
-      <Notification/>
+   
+      <AlarmApp/>
     </View>
   )
 }
