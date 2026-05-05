@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/loveyou.otf",
+      "sha1": "186de6f81a3c4bb9746ed8cb568ac1a8f59b5c94"
+    },
+    {
+      "path": "assets/fonts/Notedry Base.otf",
+      "sha1": "bc836e6144462696d6afd19266a4b5d8efb518dc"
+    },
+    {
+      "path": "assets/fonts/Notedry Base.ttf",
+      "sha1": "4f005d39172169e92c44257249b03d4761e58c1d"
+    },
+    {
+      "path": "assets/fonts/Notedry.otf",
+      "sha1": "205dc35c7585d7118d118ee811e099cb69ebbd25"
+    },
+    {
+      "path": "assets/fonts/Notedry.ttf",
+      "sha1": "0d611cfc40e10c2f0f8b1eb8df9f9eb99610197b"
+    }
+  ]
+}

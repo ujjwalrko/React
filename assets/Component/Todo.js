@@ -7,7 +7,8 @@ import {
   FlatList,
   StyleSheet,
   Keyboard,
-  Platform
+  Platform,
+  Alert
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -140,6 +141,39 @@ export default function Todo() {
     );
   };
 
+  const deleteAllTodos = () => {
+    todos.forEach(todo => {
+      if (todo.notificationId) {
+        cancelAlarm(todo.notificationId);
+      }
+    });
+    setTodos([]);
+  };
+
+  const confirmDeleteAll = () => {
+    if (todos.length === 0) return;
+    Alert.alert(
+      "Delete All Tasks",
+      "Are you sure you want to delete all tasks?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        { 
+          text: "Delete All", 
+          onPress: deleteAllTodos,
+          style: "destructive"
+        }
+      ]
+    );
+  };
+ 
+
+  const pic =()=>{
+    Image
+  }
+
   const renderItem = ({ item }) => (
     <View style={styles.cardContainer}>
       <View style={styles.cardShadow} />
@@ -171,15 +205,18 @@ export default function Todo() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.deleteBtn} onPress={() => deleteTodo(item.id)}>
+        <TouchableOpacity style={styles.deleteBtn} onPress={() => confirmDelete(item.id)}>
           <Icon name="trash-outline" size={20} color="#FFF" />
         </TouchableOpacity>
       </View>
+      
     </View>
+    
   );
 
   return (
     <View style={styles.container}>
+     
       <Text style={styles.header}>TARGETS</Text>
 
       {/* Input */}
@@ -222,10 +259,23 @@ export default function Todo() {
             <View style={styles.emptyShadow} />
             <View style={styles.emptyBox}>
               <Text style={styles.empty}>Nothing to do. Add a target! 🎯</Text>
+              
             </View>
+            
           </View>
         }
+        
       />
+
+      {todos.length > 0 && (
+        <View style={styles.buttonContainer}>
+          <View style={styles.clearAllShadow} />
+          <TouchableOpacity style={styles.clearAllBtn} onPress={confirmDeleteAll}>
+            <Icon name="trash-outline" size={32} color="#FFF" />
+          </TouchableOpacity>
+        </View>
+      )}
+      
 
       <DatePicker
         modal
@@ -239,29 +289,33 @@ export default function Todo() {
         }}
         onCancel={() => setIsDatePickerOpen(false)}
       />
+      
+      
+       
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 60,
     flex: 1,
     backgroundColor: "#F4F0EA",
     width: '100%',
   },
   header: {
+    marginBottom:50,
     textAlign: "center",
-    fontSize: 42,
-    fontWeight: "900",
+    fontSize: 72,
+    fontFamily: "loveyou",
     color: "#000",
-    marginTop: 60,
-    marginBottom: 20,
     textTransform: 'uppercase',
     letterSpacing: 2,
     textShadowColor: '#FFF',
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 0,
   },
+
   inputContainer: {
     marginHorizontal: 20,
     marginBottom: 10,
@@ -410,5 +464,35 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     textAlign: "center",
+  },
+
+
+
+
+
+
+
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 40,
+    alignSelf: 'center',
+    zIndex: 10,
+  },
+  clearAllShadow: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    right: -6,
+    bottom: -6,
+    backgroundColor: '#000',
+  },
+  clearAllBtn: {
+    backgroundColor: "#EF4444",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 64,
+    height: 64,
+    borderWidth: 3,
+    borderColor: "#000",
   },
 });
